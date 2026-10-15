@@ -1,0 +1,813 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#210f1b">
+<title>Chapter II — A Little Place Just for You ♡</title>
+
+<style>
+:root {
+  --night: #210f1b;
+  --night2: #321725;
+  --wine: #5b233e;
+  --rose: #f0a8c5;
+  --pink: #ffdce9;
+  --cream: #fff3f0;
+  --muted: #d2adbd;
+  --line: rgba(255,220,233,.17);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: radial-gradient(
+    ellipse at 50% -10%,
+    #69314d 0%,
+    var(--night) 56%,
+    #170b13 100%
+  );
+  color: var(--cream);
+  font-family: Georgia, "Times New Roman", serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+button { font: inherit; cursor: pointer; }
+
+.stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(#ffe4ee 1px, transparent 1.5px),
+    radial-gradient(#f0a8c5 1px, transparent 1.5px);
+  background-size: 87px 87px, 131px 131px;
+  background-position: 0 0, 38px 60px;
+  opacity: .23;
+  z-index: 0;
+}
+
+.wrap { position: relative; z-index: 1; }
+
+.topbar {
+  width: min(1100px, calc(100% - 34px));
+  margin: auto;
+  padding: 22px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand {
+  font-size: .92rem;
+  letter-spacing: .08em;
+  color: #ffe5ef;
+}
+
+.brand span { color: var(--rose); }
+
+.music {
+  background: rgba(255,230,240,.08);
+  border: 1px solid var(--line);
+  color: var(--pink);
+  border-radius: 99px;
+  padding: 10px 15px;
+  font: .83rem system-ui, sans-serif;
+}
+
+.hero {
+  width: min(920px, calc(100% - 32px));
+  min-height: 79vh;
+  margin: 0 auto 85px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.hero-card {
+  width: min(720px, 100%);
+  padding: clamp(32px, 7vw, 72px) clamp(22px, 6vw, 62px);
+  border: 1px solid rgba(255,220,233,.2);
+  border-radius: 28px;
+  background: linear-gradient(
+    145deg,
+    rgba(255,240,247,.09),
+    rgba(255,240,247,.025)
+  );
+  box-shadow: 0 30px 90px rgba(0,0,0,.25);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+.eyebrow {
+  font: 700 .68rem system-ui, sans-serif;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--rose);
+}
+
+h1, h2, h3 { font-weight: 400; }
+
+h1 {
+  font-size: clamp(3rem, 9vw, 6rem);
+  letter-spacing: -.055em;
+  line-height: .95;
+  margin: 25px 0 20px;
+}
+
+h1 em {
+  color: var(--rose);
+  font-weight: 400;
+}
+
+.hero-copy {
+  font: 1rem/1.9 system-ui, sans-serif;
+  color: var(--muted);
+  max-width: 500px;
+  margin: 0 auto 30px;
+}
+
+.wax-seal {
+  width: 95px;
+  height: 95px;
+  border: 1px solid rgba(255,220,233,.36);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin: 23px auto;
+  color: var(--pink);
+  font-size: 2.4rem;
+  animation: glow 3s ease-in-out infinite;
+}
+
+.btn {
+  border: 0;
+  border-radius: 99px;
+  padding: 14px 23px;
+  background: linear-gradient(135deg,#f3b2cb,#ce6b98);
+  color: #321321;
+  font: 700 .88rem system-ui, sans-serif;
+  box-shadow: 0 10px 28px rgba(206,107,152,.2);
+  transition: transform .2s;
+}
+
+.btn:hover { transform: translateY(-2px); }
+
+.hint {
+  font: .76rem system-ui, sans-serif;
+  color: #b58b9e;
+  margin-top: 17px;
+}
+
+.float {
+  position: absolute;
+  color: #e9a0bd;
+  opacity: .48;
+  animation: float 6s ease-in-out infinite;
+  font-size: 1.5rem;
+}
+
+.f1 { top: 15%; left: 4%; }
+.f2 { right: 4%; top: 24%; animation-delay: -2s; }
+.f3 { bottom: 15%; left: 8%; animation-delay: -3s; }
+.f4 { bottom: 12%; right: 7%; font-size: 2rem; }
+
+main {
+  display: none;
+  animation: rise .8s ease both;
+}
+
+main.show { display: block; }
+
+.section {
+  width: min(1040px, calc(100% - 34px));
+  margin: 0 auto 100px;
+  scroll-margin-top: 25px;
+}
+
+.section-head {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.section-head h2 {
+  font-size: clamp(2.3rem, 6vw, 4rem);
+  margin: 13px 0;
+}
+
+.section-head p {
+  font: .95rem/1.8 system-ui, sans-serif;
+  color: var(--muted);
+  max-width: 580px;
+  margin: auto;
+}
+
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.memory {
+  padding: 12px 12px 20px;
+  border: 1px solid var(--line);
+  border-radius: 17px;
+  background: rgba(255,239,246,.055);
+  box-shadow: 0 15px 40px rgba(0,0,0,.12);
+  transition: transform .25s;
+}
+
+.memory:hover { transform: translateY(-5px); }
+
+.photo {
+  aspect-ratio: 4 / 4.5;
+  border-radius: 10px;
+  overflow: hidden;
+  background: linear-gradient(145deg,#51233c,#321725);
+  margin-bottom: 16px;
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.placeholder {
+  height: 100%;
+  display: none;
+  place-items: center;
+  text-align: center;
+  padding: 20px;
+  color: #f0b4cc;
+  line-height: 1.8;
+}
+
+.memory h3 {
+  font-size: 1.35rem;
+  margin: 0 4px 8px;
+  color: #ffe5ef;
+}
+
+.memory p {
+  font: .86rem/1.75 system-ui, sans-serif;
+  color: var(--muted);
+  margin: 0 4px;
+}
+
+.letter-panel {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 22px;
+  align-items: stretch;
+}
+
+.letter-intro, .letter-paper {
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: clamp(23px, 4vw, 38px);
+}
+
+.letter-intro {
+  background: linear-gradient(
+    145deg,
+    rgba(240,168,197,.14),
+    rgba(255,255,255,.025)
+  );
+}
+
+.letter-intro h3 {
+  font-size: 2rem;
+  line-height: 1.15;
+  margin: 15px 0;
+}
+
+.letter-intro p {
+  font: .9rem/1.9 system-ui, sans-serif;
+  color: var(--muted);
+}
+
+.letter-paper {
+  background: #fff3f0;
+  color: #4d2638;
+  box-shadow: 0 20px 55px rgba(0,0,0,.18);
+  position: relative;
+}
+
+.letter-paper:before {
+  content: "♡";
+  position: absolute;
+  right: 22px;
+  top: 12px;
+  font-size: 2rem;
+  color: #d88ba8;
+}
+
+.letter-paper .date {
+  font: .7rem system-ui, sans-serif;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: #b46b89;
+}
+
+.letter-paper h3 {
+  font-size: 2rem;
+  margin: 14px 0;
+}
+
+.letter-paper p {
+  font-size: 1.02rem;
+  line-height: 1.95;
+  margin: 0 0 15px;
+}
+
+.signature {
+  color: #b14f7c;
+  font-style: italic;
+  font-size: 1.3rem !important;
+}
+
+.letter-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.btn-dark {
+  background: #59243f;
+  color: #fff0f6;
+  box-shadow: none;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #59243f;
+  border: 1px solid rgba(89,36,63,.28);
+  box-shadow: none;
+}
+
+.comfort {
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  padding: clamp(28px, 6vw, 55px);
+  background: linear-gradient(145deg,rgba(100,38,67,.75),rgba(39,16,29,.9));
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.comfort h2 {
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  margin: 15px 0;
+}
+
+.comfort p {
+  font: .97rem/1.95 system-ui, sans-serif;
+  color: #e2c3d0;
+  max-width: 680px;
+  margin: 0 auto 25px;
+}
+
+.hidden-letter {
+  display: none;
+  text-align: left;
+  max-width: 720px;
+  margin: 27px auto 0;
+  padding: 25px;
+  border-radius: 18px;
+  background: rgba(255,244,248,.08);
+  border: 1px solid var(--line);
+  font: .98rem/2 system-ui, sans-serif;
+  color: #ffe8f0;
+}
+
+.hidden-letter.show {
+  display: block;
+  animation: rise .6s ease both;
+}
+
+.footer {
+  text-align: center;
+  color: #a98296;
+  font: .8rem/1.9 system-ui, sans-serif;
+  padding: 0 20px 40px;
+}
+
+.modal-bg {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: rgba(9,4,8,.75);
+  backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+.modal-bg.show { display: flex; }
+
+.modal {
+  width: min(520px,100%);
+  background: #fff3f0;
+  color: #4d2638;
+  padding: 30px;
+  border-radius: 22px;
+  position: relative;
+  max-height: 85vh;
+  overflow: auto;
+  animation: rise .35s ease;
+}
+
+.modal h2 { font-size: 2rem; margin: 8px 0 15px; }
+.modal p { white-space: pre-line; line-height: 1.9; }
+
+.close {
+  position: absolute;
+  right: 14px;
+  top: 10px;
+  border: 0;
+  background: transparent;
+  color: #75455b;
+  font-size: 1.8rem;
+}
+
+.falling {
+  position: fixed;
+  z-index: 15;
+  top: -30px;
+  pointer-events: none;
+  animation: fall linear forwards;
+}
+
+.music-hint {
+  position: fixed;
+  z-index: 5;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100% - 24px);
+  padding: 9px 13px;
+  background: rgba(42,18,31,.92);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  font: .76rem system-ui, sans-serif;
+  color: #f4cddd;
+  text-align: center;
+}
+
+.music-hint.hide { display: none; }
+
+@keyframes glow {
+  0%,100% { box-shadow: 0 0 25px rgba(240,168,197,.08); }
+  50% { box-shadow: 0 0 42px rgba(240,168,197,.2); }
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0) rotate(-7deg); }
+  50% { transform: translateY(-17px) rotate(8deg); }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fall {
+  to { transform: translateY(110vh) rotate(480deg); opacity: 0; }
+}
+
+@media(max-width:760px) {
+  .hero { min-height: 74vh; margin-bottom: 65px; }
+  .topbar { padding: 16px 0; }
+  .brand { font-size: .76rem; }
+  .music { padding: 9px 11px; font-size: .75rem; }
+  .memory-grid { grid-template-columns: 1fr; gap: 14px; }
+  .memory {
+    display: grid;
+    grid-template-columns: 108px 1fr;
+    gap: 14px;
+    align-items: center;
+    transform: none !important;
+    padding: 10px;
+  }
+  .photo { aspect-ratio: 1; margin: 0; }
+  .memory h3 { font-size: 1.2rem; }
+  .letter-panel { grid-template-columns: 1fr; }
+  .section { margin-bottom: 72px; }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  *, *:before, *:after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="stars" aria-hidden="true"></div>
+
+<div class="wrap">
+<header class="topbar">
+  <div class="brand">CHAPTER II <span>♡</span> FOR CHOTU</div>
+  <button class="music" id="musicButton" type="button">♫ Play our song</button>
+</header>
+
+<section class="hero" id="welcome">
+  <span class="float f1">♡</span>
+  <span class="float f2">✧</span>
+  <span class="float f3">✿</span>
+  <span class="float f4">♡</span>
+
+  <div class="hero-card">
+    <div class="eyebrow">a little world, made only for you</div>
+    <div class="wax-seal">♡</div>
+    <h1>For my<br><em>Chotu.</em></h1>
+    <p class="hero-copy">
+      Some people become a safe place without even trying.
+      This is a little corner of the world to remind you that
+      you matter, you are loved, and you never have to pretend with me.
+    </p>
+    <button class="btn" id="openWorld" type="button">
+      Come inside, my favourite human ♡
+    </button>
+    <div class="hint">a friendship letter from Vanish · made with love</div>
+  </div>
+</section>
+
+<main id="main">
+
+<section class="section" id="memories">
+  <div class="section-head">
+    <div class="eyebrow">little moments, big feelings</div>
+    <h2>Our memory corner</h2>
+    <p>
+      Not every precious memory has to be grand.
+      Sometimes it's just a photo, a laugh, a silly moment,
+      or the comfort of knowing someone is there.
+    </p>
+  </div>
+
+  <div class="memory-grid">
+    <article class="memory">
+      <div class="photo">
+        <img src="images/aasare4.jpeg" alt="A treasured memory"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+        <div class="placeholder">♡<br>Your first favourite memory</div>
+      </div>
+      <div>
+        <h3>The little things</h3>
+        <p>The tiny moments that might look ordinary to everyone else, but feel special because they're ours.</p>
+      </div>
+    </article>
+
+    <article class="memory">
+      <div class="photo">
+        <img src="images/aasare5.jpeg" alt="A happy memory"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+        <div class="placeholder">✿<br>A moment worth keeping</div>
+      </div>
+      <div>
+        <h3>My favourite human</h3>
+        <p>Thank you for being someone I can laugh with, be silly with, and care about with my whole heart.</p>
+      </div>
+    </article>
+
+    <article class="memory">
+      <div class="photo">
+        <img src="images/aasare6.jpeg" alt="A memory for the future"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+        <div class="placeholder">☾<br>More chapters to come</div>
+      </div>
+      <div>
+        <h3>Not the last chapter</h3>
+        <p>We still have so many memories left to make. I hope we keep finding reasons to laugh together.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="letter">
+  <div class="section-head">
+    <div class="eyebrow">the words I hope you keep</div>
+    <h2>A letter from my heart</h2>
+    <p>You don't have to do anything to deserve this letter. Just be you, and let me say what I mean.</p>
+  </div>
+
+  <div class="letter-panel">
+    <div class="letter-intro">
+      <div class="eyebrow">read this slowly</div>
+      <h3>For the days you need a little extra love.</h3>
+      <p>There are things I may not say perfectly in person, so I made you a place where the words can stay — ready whenever you need them.</p>
+      <p>Take a breath. This one's for you. ♡</p>
+    </div>
+
+    <article class="letter-paper">
+      <div class="date">A note for my Chotu · always</div>
+      <h3>My dear Chotu,</h3>
+
+      <p>I don't know if I tell you enough, but I am genuinely so grateful that you're part of my life. Out of all the people we could meet in this huge world, somehow our paths crossed — and that means something to me.</p>
+
+      <p>You don't have to be cheerful all the time. You don't have to make everyone laugh, have everything figured out, or hide the parts of you that feel tired. You are allowed to have quiet days, confusing days, messy days, and days when you just need someone to sit beside you without asking you to explain everything.</p>
+
+      <p>I hope you know that your worth doesn't disappear when you make a mistake, when you feel lost, or when you don't feel like your best self. You are still you. Still important. Still deserving of gentleness, patience, and good things.</p>
+
+      <p>And if I could wish one thing for you, it would be that you could see yourself through kinder eyes. I wish you could see the little things that make you special, the ways you leave a mark on people's lives, and all the beautiful things that are still waiting for you.</p>
+
+      <p>Thank you for the memories we've already made, for the laughs, and for simply being someone I care about this much. I can't promise I'll always know the perfect thing to say, but I can promise that your feelings matter to me and that I will keep trying to show up with care.</p>
+
+      <p>Whenever life gets too loud, come back to this little page. Let it remind you that you don't have to carry every hard thing alone. One day, one breath, one tiny step at a time, okay?</p>
+
+      <p class="signature">Always in your corner,<br>Vanish ♡</p>
+
+      <div class="letter-actions">
+        <button class="btn btn-dark" id="saveLine" type="button">Keep a little reminder ♡</button>
+        <button class="btn btn-outline" id="openMiniLetter" type="button">One more note</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section">
+  <div class="comfort">
+    <div class="eyebrow">open on a difficult day</div>
+    <h2>When the world feels too heavy</h2>
+    <p>
+      You don't have to explain why you're sad before you deserve comfort.
+      You don't have to fix everything tonight. You're allowed to pause,
+      breathe, ask for help, and take things slowly.
+    </p>
+
+    <button class="btn" id="secretButton" type="button">
+      Unlock your secret letter ♡
+    </button>
+
+    <div class="hidden-letter" id="secretLetter">
+      Chotu, listen to me for a tiny moment. A hard day is not proof that you're failing. Feeling overwhelmed doesn't make you weak, and needing support doesn't make you a burden. You are a person, not a machine — you deserve rest, care, and room to be imperfect.
+      <br><br>
+      Please do one small kind thing for yourself. Have some water. Unclench your shoulders. Take a few slow breaths. Message someone you trust if being alone with your thoughts feels like too much. You don't have to solve your whole life in one night.
+      <br><br>
+      I hope you remember that there are still soft mornings ahead, songs that will make you smile, people who will care, and memories you haven't made yet. For now, just take the next little step. I'm cheering for you, always.
+      <br><br>
+      <strong>You're precious to me. Don't forget that. ♡ — Vanish</strong>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  made slowly, with love, by Vanish ♡<br>
+  Chapter II of a friendship I hope keeps growing.
+</footer>
+</main>
+</div>
+
+<audio id="bgMusic" src="music/audiomass1-output.mp3" preload="none" loop></audio>
+<div class="music-hint" id="musicHint">♫ Tap “Play our song” to start the music.</div>
+
+<div class="modal-bg" id="modalBg" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <button class="close" id="closeModal" aria-label="Close" type="button">×</button>
+    <div class="eyebrow">just one more thing</div>
+    <h2 id="modalTitle">A tiny reminder ♡</h2>
+    <p id="modalText"></p>
+    <button class="btn btn-dark" id="okayModal" type="button">I'll keep it close ♡</button>
+  </div>
+</div>
+
+<script>
+const music = document.getElementById('bgMusic');
+const musicButton = document.getElementById('musicButton');
+const musicHint = document.getElementById('musicHint');
+let playing = false;
+
+musicButton.addEventListener('click', async () => {
+  if (!playing) {
+    try {
+      music.volume = 0.42;
+      await music.play();
+      playing = true;
+      musicButton.textContent = '♫ Pause our song';
+      musicButton.setAttribute('aria-pressed', 'true');
+      musicHint.textContent = '♫ Our little soundtrack is playing ♡';
+      setTimeout(() => musicHint.classList.add('hide'), 3000);
+    } catch (error) {
+      musicHint.textContent =
+        'Song not playing? Check musics/audiomass-output.mp3 and try again.';
+      musicHint.classList.remove('hide');
+      console.error('Audio playback failed:', error);
+    }
+  } else {
+    music.pause();
+    playing = false;
+    musicButton.textContent = '♫ Play our song';
+    musicButton.setAttribute('aria-pressed', 'false');
+    musicHint.textContent = '♫ Paused — tap to play again.';
+    musicHint.classList.remove('hide');
+  }
+});
+
+document.getElementById('openWorld').addEventListener('click', () => {
+  document.getElementById('main').classList.add('show');
+  document.getElementById('main').scrollIntoView({
+    behavior: 'smooth',
+    block: 'start'
+  });
+  shower(18);
+});
+
+document.getElementById('saveLine').addEventListener('click', () => {
+  openModal(
+    'A little reminder ♡',
+    'You do not need to be perfect to be loved.\n\n' +
+    'You can have a difficult day and still be doing your best. ' +
+    'You can change your mind, start again, rest, and ask for help.\n\n' +
+    'I hope you keep choosing kindness for yourself, Chotu.\n' +
+    'You deserve it.\n\n— Vanish'
+  );
+});
+
+document.getElementById('openMiniLetter').addEventListener('click', () => {
+  openModal(
+    'If I could tell you one thing…',
+    'I hope life surprises you in the gentlest ways. I hope you find ' +
+    'people who make you feel safe to be yourself, dreams that make you ' +
+    'excited to wake up, and little moments that remind you how beautiful ' +
+    'it is to be here.\n\n' +
+    'And when things are hard, I hope you remember you don’t have to face ' +
+    'them pretending to be okay. You matter to me, exactly as you are. ♡\n\n' +
+    '— Vanish'
+  );
+});
+
+document.getElementById('secretButton').addEventListener('click', () => {
+  const letter = document.getElementById('secretLetter');
+  const visible = letter.classList.toggle('show');
+
+  document.getElementById('secretButton').textContent = visible
+    ? 'Close your secret letter ♡'
+    : 'Unlock your secret letter ♡';
+
+  if (visible) {
+    shower(28);
+    letter.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+});
+
+const modalBg = document.getElementById('modalBg');
+
+function openModal(title, text) {
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalText').textContent = text;
+  modalBg.classList.add('show');
+  document.getElementById('closeModal').focus();
+}
+
+function closeModal() {
+  modalBg.classList.remove('show');
+}
+
+document.getElementById('closeModal').addEventListener('click', closeModal);
+document.getElementById('okayModal').addEventListener('click', closeModal);
+
+modalBg.addEventListener('click', event => {
+  if (event.target === modalBg) closeModal();
+});
+
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') closeModal();
+});
+
+function shower(count) {
+  const bits = ['♡', '♥', '✧', '✿'];
+
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('span');
+    el.className = 'falling';
+    el.textContent = bits[Math.floor(Math.random() * bits.length)];
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.color = ['#f0a8c5', '#ffdce9', '#c86b96', '#fff3f0'][
+      Math.floor(Math.random() * 4)
+    ];
+    el.style.fontSize = (12 + Math.random() * 18) + 'px';
+    el.style.animationDuration = (3 + Math.random() * 3) + 's';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 6500);
+  }
+}
+</script>
+</body>
+</html>
